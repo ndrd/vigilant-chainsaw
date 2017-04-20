@@ -36,33 +36,30 @@ int check_type();
 ">="			  { yylval.fn = 3; count(); return CMP_OP; }
 "=="			  { yylval.fn = 4; count(); return CMP_OP; }
 "!="			  { yylval.fn = 5; count(); return CMP_OP; }
-";"			    { count(); return (';'); }
+";"			    { count(); return ';'; }
 "&&"			  { count(); return AND_OP; }
 "||"			  { count(); return  OR_OP; }
-("{"|"<%")	{ count(); return ('{'); }
-("}"|"%>")	{ count(); return ('}'); }
-","			    { count(); return (','); }
-"="			    { count(); return('='); }
-"("			    { count(); return ('('); }
-")"			    { count(); return (')'); }
+("{"|"<%")	{ printf("LI");count(); return '{'; }
+("}"|"%>")	{ printf("LD");count(); return '}'; }
+","			    { count(); return ','; }
+"="			    { count(); return'='; }
+"("			    { printf("PI");count(); return '('; }
+")"			    { printf("PD");count(); return ')'; }
 ("["|"<:")	{ count(); return ('['); }
 ("]"|":>")	{ count(); return (']'); }
-"."			{  count(); return ('.'); }
-"!"			{  count(); return ('!'); }
-"-"			{  count(); return ('-'); }
-"+"			{  count(); return ('+'); }
-"*"			{  count(); return ('*'); }
-"/"			{  count(); return ('/'); }
-"%"			{  count(); return ('%'); }
+"."			    {  count(); return ('.'); }
+"!"			    {  count(); return ('!'); }
+"-"			    {  count(); return ('-'); }
+"+"			    {  count(); return ('+'); }
+"*"			    {  count(); return ('*'); }
+"/"			    {  count(); return ('/'); }
+"%"			    {  count(); return ('%'); }
 {D}+       { yylval.d = atoi(yytext); /*printf("\n%d\n",atoi(yytext));*/ count(); return(CONSTANT); }
 {D}+{FS}?	 { yylval.d = atof(yytext); /*printf("\n%f\n",atof(yytext));*/ count(); return(CONSTANT); }
 L?\"(\\.|[^\\"])*\"	{ yylval.s = yytext; count(); return(STRING_LITERAL);}
-{L}({L}|{D})*		{ yylval.s = yytext; printf("%s",yytext);count(); return(check_type()); }
-L?'(\\.|[^\\'])+'	{ yylval.s = yytext; count(); printf("%s",yytext); return(STRING_LITERAL); }
-
-
-
-[ \t\v\n\f]		{ count(); }
+{L}({L}|{D})*		{ yylval.s = yytext; /*printf("%s",yytext);*/count(); return(check_type()); }
+L?'(\\.|[^\\'])+'	{ yylval.s = yytext; count(); /*printf("%s",yytext);*/ return(STRING_LITERAL); }
+[\t\v\n\f]+		{ count(); }
 .			{ /* ignore bad characters */ }
 
 %%
@@ -111,11 +108,12 @@ void count(void)
 
 int check_type(void)
 {
-/* if ( !(strcmp(yytext,"int") && strcmp(yytext,"char") && strcmp(yytext,"double"))){ */
-/* 		return TYPE_NAME; */
-/* printf("SOY TYPE"); */
-/* } */
+if ( !(strcmp(yytext,"int") && strcmp(yytext,"char") && strcmp(yytext,"double"))){
+		return TYPE_NAME;
+    printf("SOY TYPE");
+}
+  printf("SOY ID");
 	return IDENTIFIER;
-printf("SOY ID");
+
 
 }

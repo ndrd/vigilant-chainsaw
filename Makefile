@@ -1,6 +1,6 @@
 all:
 	flex full.l
-	bison -dg full.y
+	bison -dgv full.y
 	gcc lex.yy.c full.tab.c -lfl -lm -o test
 	./test < h.c
 clean:
