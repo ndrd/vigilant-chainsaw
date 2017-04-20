@@ -1,115 +1,45 @@
-
-/* symbol table */
-struct symbol {		/* a variable name */
-  char *name;
-  double value;
-  struct ast *func;	/* stmt for the function */
-  struct symlist *syms; /* list of dummy args */
+enum RESERVED_WORDS {
+  BREAK = 0,
+  CHAR = 1,
+  CONTINUE = 2,
+  DOUBLE = 3,
+  ELSE = 4,
+  FOR = 5,
+  IF = 6,
+  INT = 7,
+  RETURN = 8,
+  VOID = 9,
+  WHILE = 10
 };
 
-/* simple symtab of fixed size */
-#define NHASH 9997
-struct symbol symtab[NHASH];
-
-struct symbol *lookup(char*);
-
-/* list of symbols, for an argument list */
-struct symlist {
-  struct symbol *sym;
-  struct symlist *next;
+enum ASSIGNMENT {
+    ADD_ASSIGN = 0,
+    SUB_ASSIGN = 1,
+    MUL_ASSIGN = 2,
+    DIV_ASSIGN = 3,
+    MOD_ASSIGN = 4
 };
 
-struct symlist *newsymlist(struct symbol *sym, struct symlist *next);
-void symlistfree(struct symlist *sl);
-
-/* node types
-   PRIMARRY_EXPRESSIOn
-   POSTFIX_EXPRESSION
-   ARGUMENT_EXPRESION_LIST
-   UNARY_EXPRESION
-   UNARy_OPERATION
-   CAST_EXPRESION
-   MULTIPLICATIVE_EXPRESSION
-   ADDITIVE_EXPRESSION
-   RELATIONAL_EXPRESSION
-   EQUALITY_EXPRESSION
-   LOGICAL_AND_EXPRESSION
-   ...
-
- */
-enum bifs {			/* built-in functions */
-  B_sqrt = 1,
-  B_exp,
-  B_log,
-  B_print
+enum BINARY_OP {
+    MINUS = 0,
+    PLUS = 1,
+    MULTIPLIER = 2,
+    DIV = 3,
+    MOD = 4,
+    LT = 5,
+    GT = 6
 };
 
-/* nodes in the Abstract Syntax Tree */
-/* all have common initial nodetype */
-
-struct ast {
-  int nodetype;
-  struct ast *l;
-  struct ast *r;
+enum UNARY_OP {
+    NOT = 0
 };
 
-struct fncall {			/* built-in function */
-  int nodetype;			/* type F */
-  struct ast *l;
-  enum bifs functype;
+enum SEPARATORS {
+    BR_L = 0,
+    BR_R = 1,
+    PERIOD = 2,
+    PA_L = 3,
+    PA_R = 4,
+    SQ_L = 5,
+    SQ_R = 6
 };
-
-struct ufncall {		/* user function */
-  int nodetype;			/* type C */
-  struct ast *l;		/* list of arguments */
-  struct symbol *s;
-};
-
-struct flow {
-  int nodetype;			/* type I or W */
-  struct ast *cond;		/* condition */
-  struct ast *tl;		/* then or do list */
-  struct ast *el;		/* optional else list */
-};
-
-struct numval {
-  int nodetype;			/* type K */
-  double number;
-};
-
-struct symref {
-  int nodetype;			/* type N */
-  struct symbol *s;
-};
-
-struct symasgn {
-  int nodetype;			/* type = */
-  struct symbol *s;
-  struct ast *v;		/* value */
-};
-
-/* build an AST */
-struct ast *newast(int nodetype, struct ast *l, struct ast *r);
-struct ast *newcmp(int cmptype, struct ast *l, struct ast *r);
-struct ast *newfunc(int functype, struct ast *l);
-struct ast *newcall(struct symbol *s, struct ast *l);
-struct ast *newref(struct symbol *s);
-struct ast *newasgn(struct symbol *s, struct ast *v);
-struct ast *newnum(double d);
-struct ast *newflow(int nodetype, struct ast *cond, struct ast *tl, struct ast *tr);
-
-/* define a function */
-void dodef(struct symbol *name, struct symlist *syms, struct ast *stmts);
-
-/* evaluate an AST */
-double eval(struct ast *);
-
-/* delete and free an AST */
-void treefree(struct ast *);
-
-/* interface to the lexer */
-extern int yylineno; /* from lexer */
-void yyerror(char *s, ...);
-
-extern int debug;
-void dumpast(struct ast *a, int level);
