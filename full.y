@@ -39,26 +39,26 @@ primary_expression
 	;
 
 postfix_expression
-	: primary_expression
-	| postfix_expression '[' expression ']'
-	| postfix_expression '(' ')'
-	| postfix_expression '(' argument_expression_list ')'
-	| postfix_expression INC_OP
-	| postfix_expression DEC_OP
-	| '(' type_name ')' '{' initializer_list '}'
-	| '(' type_name ')' '{' initializer_list ',' '}'
+	: primary_expression { printf("1");}
+	| postfix_expression '[' expression ']' { printf("2");}
+	| postfix_expression '(' ')' { printf("3");}
+	| postfix_expression '(' argument_expression_list ')' { printf("4");}
+	| postfix_expression INC_OP { printf("5");}
+	| postfix_expression DEC_OP { printf("6");}
+	| '(' type_name ')' '{' initializer_list '}' { printf("7");}
+	| '(' type_name ')' '{' initializer_list ',' '}' { printf("8");}
 	;
 
 argument_expression_list
-	: assignment_expression
-	| argument_expression_list ',' assignment_expression
+	: assignment_expression {printf("8");}
+	| argument_expression_list ',' assignment_expression {printf("9");}
 	;
 
 unary_expression
-	: postfix_expression
-	| INC_OP unary_expression
-	| DEC_OP unary_expression
-	| unary_operator cast_expression
+	: postfix_expression {printf ("10");}
+	| INC_OP unary_expression {printf ("11");}
+	| DEC_OP unary_expression {printf ("12");}
+	| unary_operator cast_expression {printf ("13");}
 	;
 
 unary_operator
@@ -73,10 +73,10 @@ cast_expression
 	;
 
 multiplicative_expression
-	: cast_expression
-	| multiplicative_expression '*' cast_expression
-	| multiplicative_expression '/' cast_expression
-	| multiplicative_expression '%' cast_expression
+	: cast_expression {printf ("13");}
+	| multiplicative_expression '*' cast_expression {printf ("14");}
+	| multiplicative_expression '/' cast_expression {printf ("15");}
+	| multiplicative_expression '%' cast_expression {printf ("16");}
 	;
 
 additive_expression
@@ -124,12 +124,12 @@ constant_expression
 	;
 
 declaration
-	: declaration_specifiers ';'
-	| declaration_specifiers init_declarator_list ';'
+	: declaration_specifiers ';' {printf ("from declaration a");}
+	| declaration_specifiers init_declarator_list ';' {printf ("from declaration b");}
 	;
 
 declaration_specifiers
-: type_specifier {printf("TYPE, %s",$1);}
+	: type_specifier {printf("type_spedifier ---");}
 	| type_specifier declaration_specifiers
 	;
 
@@ -148,7 +148,7 @@ type_specifier
 	| CHAR
 	| INT {printf("HERE INT");}
 	| DOUBLE
-  | TYPE_NAME
+  	| TYPE_NAME {printf("functions");}
 	;
 
 specifier_qualifier_list
@@ -162,14 +162,14 @@ declarator
 
 
 direct_declarator
-	: IDENTIFIER
-	| '(' declarator ')'
-	| direct_declarator '[' assignment_expression ']'
-	| direct_declarator '[' '*' ']'
-	| direct_declarator '[' ']'
-	| direct_declarator '(' parameter_type_list ')'
-	| direct_declarator '(' identifier_list ')'
-	| direct_declarator '(' ')'
+	: IDENTIFIER {printf("direct_declarator 1");}
+	| '(' declarator ')' {printf("direct_declarator 2");}
+	| direct_declarator '[' assignment_expression ']' {printf("direct_declarator 3");}
+	| direct_declarator '[' '*' ']' {printf("direct_declarator 4");}
+	| direct_declarator '[' ']' {printf("direct_declarator 5");}
+	| direct_declarator '(' parameter_type_list ')' {printf("direct_declarator 6");}
+	| direct_declarator '(' identifier_list ')' {printf("direct_declarator 7");}
+	| direct_declarator '(' ')' {printf("direct_declarator 8");}
 
 
 parameter_type_list
@@ -182,9 +182,9 @@ parameter_list
 	;
 
 parameter_declaration
-	: declaration_specifiers declarator
-	| declaration_specifiers direct_abstract_declarator
-	| declaration_specifiers
+	: declaration_specifiers declarator {printf("from parameter 1");}
+	| declaration_specifiers direct_abstract_declarator {printf("from parameter 2");}
+	| declaration_specifiers {printf("from parameter 3");}
 	;
 
 identifier_list
@@ -193,22 +193,22 @@ identifier_list
 	;
 
 type_name
-	: specifier_qualifier_list
-	| specifier_qualifier_list direct_abstract_declarator
+	: specifier_qualifier_list {printf("type_name ");}
+	| specifier_qualifier_list direct_abstract_declarator {printf("type_name ");}
 	;
 
 direct_abstract_declarator
-	: '(' direct_abstract_declarator ')' {printf("I'm Here");}
-	| '[' ']'
-	| '[' assignment_expression ']'
-	| direct_abstract_declarator '[' ']'
-	| direct_abstract_declarator '[' assignment_expression ']'
-	| '[' '*' ']'
-	| direct_abstract_declarator '[' '*' ']'
-	| '(' ')' {printf("I'm Here");}
-	| '(' parameter_type_list ')'
-	| direct_abstract_declarator '(' ')' {printf("I'm Here");}
-	| direct_abstract_declarator '(' parameter_type_list ')' {printf("I'm Here");}
+	: '(' direct_abstract_declarator ')' {printf("direct abstract declarator 1");}
+	| '[' ']' {printf("direct abstract declarator 2");}
+	| '[' assignment_expression ']' {printf("direct abstract declarator 3");}
+	| direct_abstract_declarator '[' ']' {printf("direct abstract declarator 4");}
+	| direct_abstract_declarator '[' assignment_expression ']' {printf("direct abstract declarator 5");}
+	| '[' '*' ']' {printf("direct abstract declarator 6");}
+	| direct_abstract_declarator '[' '*' ']' {printf("direct abstract declarator 7");}
+	| '(' ')' {printf("I'm Here");} {printf("direct abstract declarator 8");}
+	| '(' parameter_type_list ')' {printf("direct abstract declarator 9");}
+	| direct_abstract_declarator '(' ')' {printf("direct abstract declarator 10");}
+	| direct_abstract_declarator '(' parameter_type_list ')' {printf("direct abstract declarator 11");}
 	;
 
 initializer
@@ -218,10 +218,10 @@ initializer
 	;
 
 initializer_list
-	: initializer
-	| designation initializer
-	| initializer_list ',' initializer
-	| initializer_list ',' designation initializer
+	: initializer {printf ("initializer 0");}
+	| designation initializer {printf ("initializer 1");}
+	| initializer_list ',' initializer {printf ("initializer 2");}
+	| initializer_list ',' designation initializer {printf ("initializer 3");}
 	;
 
 designation
@@ -239,11 +239,11 @@ designator
 	;
 
 statement
-	: compound_statement
-	| expression_statement
-	| selection_statement
-	| iteration_statement
-	| jump_statement
+	: compound_statement { printf("statement 1");}
+	| expression_statement { printf("statement 2");}
+	| selection_statement { printf("statement 3");}
+	| iteration_statement { printf("statement 4");}
+	| jump_statement { printf("statement 5");}
 	;
 
 compound_statement
@@ -292,13 +292,13 @@ translation_unit
 	;
 
 external_declaration
-	: function_definition
-	| declaration
+	: function_definition {printf ("external declaration");}
+	| declaration {printf ("external declaration");}
 	;
 
 function_definition
-	: declaration_specifiers direct_abstract_declarator declaration_list compound_statement
-	| declaration_specifiers direct_abstract_declarator compound_statement
+	: declaration_specifiers direct_abstract_declarator declaration_list compound_statement { printf ("is a function a");}
+	| declaration_specifiers direct_abstract_declarator compound_statement { printf ("is a function b");}
 	;
 
 declaration_list

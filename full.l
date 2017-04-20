@@ -1,5 +1,6 @@
 D			[0-9]
 L			[a-zA-Z_]
+A   		[a-zA-Z_0-9]
 FS			(f|F)
 %{
 #include <stdio.h>
@@ -10,6 +11,7 @@ void count();
 void comment(void);
 int check_type();
 %}
+
 %%
 "/*"			  { comment(); }
 "break"			{  count(); return BREAK; }
@@ -39,12 +41,13 @@ int check_type();
 ";"			    { count(); return (';'); }
 "&&"			  { count(); return AND_OP; }
 "||"			  { count(); return  OR_OP; }
-("{"|"<%")	{ count(); return ('{'); }
+
+("{"|"<%")	{ count(); return ('{'); printf("LLAVEs %s", yytext);}
 ("}"|"%>")	{ count(); return ('}'); }
 ","			    { count(); return (','); }
 "="			    { count(); return('='); }
-"("			    { count(); return ('('); }
-")"			    { count(); return (')'); }
+"("			    { count(); return ('('); printf("Parentesis %s", yytext); }
+")"			    { count(); return (')'); printf("Parentesis %s", yytext); }
 ("["|"<:")	{ count(); return ('['); }
 ("]"|":>")	{ count(); return (']'); }
 "."			{  count(); return ('.'); }
@@ -54,10 +57,11 @@ int check_type();
 "*"			{  count(); return ('*'); }
 "/"			{  count(); return ('/'); }
 "%"			{  count(); return ('%'); }
+
 {D}+       { yylval.d = atoi(yytext); /*printf("\n%d\n",atoi(yytext));*/ count(); return(CONSTANT); }
 {D}+{FS}?	 { yylval.d = atof(yytext); /*printf("\n%f\n",atof(yytext));*/ count(); return(CONSTANT); }
 L?\"(\\.|[^\\"])*\"	{ yylval.s = yytext; count(); return(STRING_LITERAL);}
-{L}({L}|{D})*		{ yylval.s = yytext; printf("%s",yytext);count(); return(check_type()); }
+{L}{A}*		{ yylval.s = yytext; printf("type %s",yytext);count(); return(check_type()); }
 L?'(\\.|[^\\'])+'	{ yylval.s = yytext; count(); printf("%s",yytext); return(STRING_LITERAL); }
 
 
@@ -115,7 +119,6 @@ int check_type(void)
 /* 		return TYPE_NAME; */
 /* printf("SOY TYPE"); */
 /* } */
+	printf("SOY ID %s ", yytext);
 	return IDENTIFIER;
-printf("SOY ID");
-
 }

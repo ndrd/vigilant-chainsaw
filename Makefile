@@ -1,7 +1,7 @@
 all:
 	flex full.l
 	bison -dg full.y
-	gcc lex.yy.c full.tab.c -lfl -lm -o test
+	gcc lex.yy.c full.tab.c -ll -lm -o test
 	./test < h.c
 clean:
 	rm -rf scanner.cpp
