@@ -1,45 +1,40 @@
-enum RESERVED_WORDS {
-  BREAK = 0,
-  CHAR = 1,
-  CONTINUE = 2,
-  DOUBLE = 3,
-  ELSE = 4,
-  FOR = 5,
-  IF = 6,
-  INT = 7,
-  RETURN = 8,
-  VOID = 9,
-  WHILE = 10
-};
+/* AST tree node */
+struct ast {
+  int type;
+  struct ast *left;
+  struct ast *right;
+}
 
-enum ASSIGNMENT {
-    ADD_ASSIGN = 0,
-    SUB_ASSIGN = 1,
-    MUL_ASSIGN = 2,
-    DIV_ASSIGN = 3,
-    MOD_ASSIGN = 4
-};
+/* symbol table */
+struct symbol {
+  char *name;
+  double value;
+  struct ast *fun;
+  struct symlist *symbs;
+}
 
-enum BINARY_OP {
-    MINUS = 0,
-    PLUS = 1,
-    MULTIPLIER = 2,
-    DIV = 3,
-    MOD = 4,
-    LT = 5,
-    GT = 6
-};
+/* symbol table */
+#define SIZE 9999
+struct symbol symbtab[NHASH];
 
-enum UNARY_OP {
-    NOT = 0
-};
+struct symbol *lookup(char*);
 
-enum SEPARATORS {
-    BR_L = 0,
-    BR_R = 1,
-    PERIOD = 2,
-    PA_L = 3,
-    PA_R = 4,
-    SQ_L = 5,
-    SQ_R = 6
-};
+struct symlist {
+  struct symbol sym;
+  struct symlist next;
+}
+
+struct symlist *newsymlist(struct symbol *sym, struct symlist *next);
+void symlistfree(struct symlist *sl);
+
+struct fncall {
+  int type;
+  struct ast *left; /* arguments */
+  struct symbol *s; /* function name */
+}
+
+/* build a node  */
+struct ast *newast(int type, struct ast *left, struct ast *right);
+struct ast *newfunc(int functype, struct ast *left);
+
+void print_ast(struct ast *a, int level);
