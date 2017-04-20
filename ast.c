@@ -48,7 +48,7 @@ lookup (char *sym)
 };
 
 struct ast *
-newast(int type, struct ast *left, struct ast *right) 
+newast(int type, struct ast *left, struct ast *right)
 {
 	struct ast *tmp  =  malloc(sizeof(struct ast));
 
@@ -92,10 +92,10 @@ newsymlist(struct symbol *sym, struct symlist *next)
 
 	sl->sym = sym;
 	sl->next = next;
-	return sl; 
+	return sl;
 }
 
-void 
+void
 symlistfree(struct symlist *sl)
 {
 	struct synlist *nsl;
@@ -106,7 +106,7 @@ symlistfree(struct symlist *sl)
 	}
 }
 
-void print_ast(struct ast *node, int level) 
+void print_ast(struct ast *node, int level)
 {
 	printf("%*s\n", 2*level, "");
 	level++;
@@ -117,4 +117,9 @@ void print_ast(struct ast *node, int level)
 	/* TODO : catch case when it's a function */
 	print_ast(node->left, level);
 	print_ast(node->right, level);
+}
+int main()
+{
+  printf("> ");
+  return yyparse();
 }

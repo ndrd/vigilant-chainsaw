@@ -1,8 +1,8 @@
 all:
 	flex full.l
-	yacc -dg full.y
-	gcc lex.yy.c y.tab.c -lfl -lm -o test
-
+	bison -dg full.y
+	gcc lex.yy.c full.tab.c -lfl -lm -o test
+	./test < h.c
 clean:
 	rm -rf scanner.cpp
 	rm -rf parser.cpp parser.hpp location.hh position.hh stack.hh

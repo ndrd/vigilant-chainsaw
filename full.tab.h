@@ -30,8 +30,8 @@
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
-#ifndef YY_YY_Y_TAB_H_INCLUDED
-# define YY_YY_Y_TAB_H_INCLUDED
+#ifndef YY_YY_FULL_TAB_H_INCLUDED
+# define YY_YY_FULL_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -69,36 +69,13 @@ extern int yydebug;
     RETURN = 279
   };
 #endif
-/* Tokens.  */
-#define IDENTIFIER 258
-#define CONSTANT 259
-#define STRING_LITERAL 260
-#define INC_OP 261
-#define DEC_OP 262
-#define AND_OP 263
-#define OR_OP 264
-#define ASSIGMENT 265
-#define CMP_OP 266
-#define TYPE_NAME 267
-#define CHAR 268
-#define INT 269
-#define DOUBLE 270
-#define VOID 271
-#define CONST 272
-#define IF 273
-#define ELSE 274
-#define WHILE 275
-#define FOR 276
-#define CONTINUE 277
-#define BREAK 278
-#define RETURN 279
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 
 union YYSTYPE
 {
-#line 8 "full.y" /* yacc.c:1915  */
+#line 13 "full.y" /* yacc.c:1909  */
 
     struct ast *a;
     double d;
@@ -106,7 +83,7 @@ union YYSTYPE
     struct symlist *sl;
     int fn;			/* which function */
 
-#line 110 "y.tab.h" /* yacc.c:1915  */
+#line 87 "full.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -119,4 +96,4 @@ extern YYSTYPE yylval;
 
 int yyparse (void);
 
-#endif /* !YY_YY_Y_TAB_H_INCLUDED  */
+#endif /* !YY_YY_FULL_TAB_H_INCLUDED  */

@@ -3,7 +3,8 @@ L			[a-zA-Z_]
 FS			(f|F)
 %{
 #include <stdio.h>
-#include "y.tab.h"
+#include <string.h>
+#include "full.tab.h"
 #include "AST.h"
 void count();
 void comment(void);
@@ -11,14 +12,14 @@ int check_type();
 %}
 %%
 "/*"			  { comment(); }
-"break"			{  count(); return(BREAK); }
-"char"			{  count(); return (CHAR); }
-"continue"	{  count(); return (CONTINUE); }
-"double"		{  count(); return (DOUBLE); }
-"else"			{  count(); return (ELSE); }
-"for"  			{  count(); return (FOR); }
-"if"	  		{  count(); return (IF); }
-"int"		  	{  count(); return (INT); }
+"break"			{  count(); return BREAK; }
+"char"			{  count(); return CHAR; }
+"continue"	{  count(); return CONTINUE; }
+"double"		{  count(); return DOUBLE; }
+"else"			{  count(); return ELSE; }
+"for"  			{  count(); return FOR; }
+"if"	  		{  count(); return IF; }
+"int"		  	{  count(); return INT; }
 "return"		{  count(); return (RETURN); }
 "void"			{  count(); return (VOID); }
 "while"			{  count(); return (WHILE); }
@@ -53,22 +54,24 @@ int check_type();
 "*"			{  count(); return ('*'); }
 "/"			{  count(); return ('/'); }
 "%"			{  count(); return ('%'); }
+{D}+       { yylval.d = atoi(yytext); /*printf("\n%d\n",atoi(yytext));*/ count(); return(CONSTANT); }
+{D}+{FS}?	 { yylval.d = atof(yytext); /*printf("\n%f\n",atof(yytext));*/ count(); return(CONSTANT); }
+L?\"(\\.|[^\\"])*\"	{ yylval.s = yytext; count(); return(STRING_LITERAL);}
+{L}({L}|{D})*		{ yylval.s = yytext; printf("%s",yytext);count(); return(check_type()); }
+L?'(\\.|[^\\'])+'	{ yylval.s = yytext; count(); printf("%s",yytext); return(STRING_LITERAL); }
 
-{L}({L}|{D})*		{ yylval.s = yytext; count(); return(check_type()); }
-L?'(\\.|[^\\'])+'	{ count(); return(CONSTANT); }
-{D}+{FS}?		{ yylval.d = atof(yytext); count(); return(CONSTANT); }
-L?\"(\\.|[^\\"])*\"	{ count(); return(STRING_LITERAL);}
+
 
 [ \t\v\n\f]		{ count(); }
 .			{ /* ignore bad characters */ }
 
 %%
 
-int yyerror(char * e)
-{
-  printf("Error\n");
-  exit(1);
-}
+/* int yyerror(char * e) */
+/* { */
+/*   printf("Error\n"); */
+/*   exit(1); */
+/* } */
 
 int yywrap(void)
 {
@@ -108,7 +111,11 @@ void count(void)
 
 int check_type(void)
 {
-if ( !(strcmp(yytext,"int") && strcmp(yytext,"char") && strcmp(yytext,"double")))
-		return TYPE_NAME;
+/* if ( !(strcmp(yytext,"int") && strcmp(yytext,"char") && strcmp(yytext,"double"))){ */
+/* 		return TYPE_NAME; */
+/* printf("SOY TYPE"); */
+/* } */
 	return IDENTIFIER;
+printf("SOY ID");
+
 }

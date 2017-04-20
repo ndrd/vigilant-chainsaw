@@ -2,6 +2,11 @@
 #  include <stdio.h>
 #  include <stdlib.h>
 #  include "AST.h"
+
+extern int yylex();
+extern int yyparse();
+extern FILE* yyin;
+void yyerror(const char* s);
 %}
 /*
    Deberian de ir acompanhados los IDENTIFIERS de la cadena asociada? */
@@ -12,7 +17,6 @@
     struct symlist *sl;
     int fn;			/* which function */
 }
-
 %token IDENTIFIER CONSTANT STRING_LITERAL
 %token INC_OP DEC_OP
 %token AND_OP OR_OP
@@ -28,8 +32,8 @@
 %%
 
 primary_expression
-	: IDENTIFIER
-	| CONSTANT
+	: IDENTIFIER { printf("Hola"); }
+	| CONSTANT { printf("STRING_LITERAL"); }
 	| STRING_LITERAL { printf("STRING_LITERAL"); }
 	| '(' expression ')'
 	;
@@ -125,7 +129,7 @@ declaration
 	;
 
 declaration_specifiers
-	: type_specifier
+: type_specifier {printf("TYPE, %s",$1);}
 	| type_specifier declaration_specifiers
 	;
 
@@ -142,8 +146,9 @@ init_declarator
 type_specifier
 	: VOID
 	| CHAR
-	| INT
+	| INT {printf("HERE INT");}
 	| DOUBLE
+  | TYPE_NAME
 	;
 
 specifier_qualifier_list
@@ -193,17 +198,17 @@ type_name
 	;
 
 direct_abstract_declarator
-	: '(' direct_abstract_declarator ')'
+	: '(' direct_abstract_declarator ')' {printf("I'm Here");}
 	| '[' ']'
 	| '[' assignment_expression ']'
 	| direct_abstract_declarator '[' ']'
 	| direct_abstract_declarator '[' assignment_expression ']'
 	| '[' '*' ']'
 	| direct_abstract_declarator '[' '*' ']'
-	| '(' ')'
+	| '(' ')' {printf("I'm Here");}
 	| '(' parameter_type_list ')'
-	| direct_abstract_declarator '(' ')'
-	| direct_abstract_declarator '(' parameter_type_list ')'
+	| direct_abstract_declarator '(' ')' {printf("I'm Here");}
+	| direct_abstract_declarator '(' parameter_type_list ')' {printf("I'm Here");}
 	;
 
 initializer
@@ -242,7 +247,7 @@ statement
 	;
 
 compound_statement
-	: '{' '}'
+	: '{' '}' {printf("I'm Here");}
 	| '{' block_item_list '}'
 	;
 
@@ -282,8 +287,8 @@ jump_statement
 	;
 
 translation_unit
-	: external_declaration
-	| translation_unit external_declaration
+	: external_declaration   {printf("Hola");}
+	| translation_unit external_declaration {printf("Hola");}
 	;
 
 external_declaration
@@ -301,3 +306,16 @@ declaration_list
 	| declaration_list declaration
 	;
 %%
+
+  int main(){
+      yyin = stdin;
+      do{
+          yyparse();
+      }while(!feof(yyin));
+
+      return 0;
+  }
+void yyerror( const char* s ){
+    fprintf(stderr, "Parse error: %s\n",s);
+    exit(1);
+}

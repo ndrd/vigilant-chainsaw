@@ -38,3 +38,4 @@ struct ast *newast(int type, struct ast *left, struct ast *right);
 struct ast *newfunc(int functype, struct ast *left);
 
 void print_ast(struct ast *a, int level);
+void printff( char * a);
