@@ -1,12 +1,24 @@
 %{
 #  include <stdio.h>
 #  include <stdlib.h>
+#  include "AST.h"
 %}
+/*
+   Deberian de ir acompanhados los IDENTIFIERS de la cadena asociada? */
+%union {
+    struct ast *a;
+    double d;
+    struct symbol *s;		/* which symbol */
+    struct symlist *sl;
+    int fn;			/* which function */
+}
+
 %token IDENTIFIER CONSTANT STRING_LITERAL
-%token INC_OP DEC_OP LE_OP GE_OP EQ_OP NE_OP
-%token AND_OP OR_OP MUL_ASSIGN DIV_ASSIGN MOD_ASSIGN ADD_ASSIGN
-%token SUB_ASSIGN
-%token TYPE_NAME
+%token INC_OP DEC_OP
+%token AND_OP OR_OP
+%nonassoc <fn> ASSIGMENT
+%nonassoc <fn> CMP_OP
+%token  TYPE_NAME
 
 %token CHAR INT DOUBLE VOID CONST
 
@@ -71,16 +83,11 @@ additive_expression
 
 relational_expression
 	: additive_expression
-	| relational_expression '<' additive_expression
-	| relational_expression '>' additive_expression
-	| relational_expression LE_OP additive_expression
-	| relational_expression GE_OP additive_expression
+	| relational_expression CMP_OP additive_expression
 	;
-
 equality_expression
 	: relational_expression
-	| equality_expression EQ_OP relational_expression
-	| equality_expression NE_OP relational_expression
+	| equality_expression CMP_OP relational_expression
 	;
 
 logical_and_expression
@@ -97,14 +104,10 @@ assignment_expression
 	: logical_or_expression
 	| unary_expression assignment_operator assignment_expression
 	;
-
+//Esto se va a reducir a una funcion que toma el valor del enumerado en AST.h
 assignment_operator
 	: '='
-	| MUL_ASSIGN
-	| DIV_ASSIGN
-	| MOD_ASSIGN
-	| ADD_ASSIGN
-	| SUB_ASSIGN
+	| ASSIGMENT /*Aqui va la funcion con el enumerador ASSIGMENT*/
 	;
 
 expression

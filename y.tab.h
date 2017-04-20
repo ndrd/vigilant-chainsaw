@@ -50,30 +50,23 @@ extern int yydebug;
     STRING_LITERAL = 260,
     INC_OP = 261,
     DEC_OP = 262,
-    LE_OP = 263,
-    GE_OP = 264,
-    EQ_OP = 265,
-    NE_OP = 266,
-    AND_OP = 267,
-    OR_OP = 268,
-    MUL_ASSIGN = 269,
-    DIV_ASSIGN = 270,
-    MOD_ASSIGN = 271,
-    ADD_ASSIGN = 272,
-    SUB_ASSIGN = 273,
-    TYPE_NAME = 274,
-    CHAR = 275,
-    INT = 276,
-    DOUBLE = 277,
-    VOID = 278,
-    CONST = 279,
-    IF = 280,
-    ELSE = 281,
-    WHILE = 282,
-    FOR = 283,
-    CONTINUE = 284,
-    BREAK = 285,
-    RETURN = 286
+    AND_OP = 263,
+    OR_OP = 264,
+    ASSIGMENT = 265,
+    CMP_OP = 266,
+    TYPE_NAME = 267,
+    CHAR = 268,
+    INT = 269,
+    DOUBLE = 270,
+    VOID = 271,
+    CONST = 272,
+    IF = 273,
+    ELSE = 274,
+    WHILE = 275,
+    FOR = 276,
+    CONTINUE = 277,
+    BREAK = 278,
+    RETURN = 279
   };
 #endif
 /* Tokens.  */
@@ -82,34 +75,41 @@ extern int yydebug;
 #define STRING_LITERAL 260
 #define INC_OP 261
 #define DEC_OP 262
-#define LE_OP 263
-#define GE_OP 264
-#define EQ_OP 265
-#define NE_OP 266
-#define AND_OP 267
-#define OR_OP 268
-#define MUL_ASSIGN 269
-#define DIV_ASSIGN 270
-#define MOD_ASSIGN 271
-#define ADD_ASSIGN 272
-#define SUB_ASSIGN 273
-#define TYPE_NAME 274
-#define CHAR 275
-#define INT 276
-#define DOUBLE 277
-#define VOID 278
-#define CONST 279
-#define IF 280
-#define ELSE 281
-#define WHILE 282
-#define FOR 283
-#define CONTINUE 284
-#define BREAK 285
-#define RETURN 286
+#define AND_OP 263
+#define OR_OP 264
+#define ASSIGMENT 265
+#define CMP_OP 266
+#define TYPE_NAME 267
+#define CHAR 268
+#define INT 269
+#define DOUBLE 270
+#define VOID 271
+#define CONST 272
+#define IF 273
+#define ELSE 274
+#define WHILE 275
+#define FOR 276
+#define CONTINUE 277
+#define BREAK 278
+#define RETURN 279
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef int YYSTYPE;
+
+union YYSTYPE
+{
+#line 8 "full.y" /* yacc.c:1909  */
+
+    struct ast *a;
+    double d;
+    struct symbol *s;		/* which symbol */
+    struct symlist *sl;
+    int fn;			/* which function */
+
+#line 110 "y.tab.h" /* yacc.c:1909  */
+};
+
+typedef union YYSTYPE YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
 #endif

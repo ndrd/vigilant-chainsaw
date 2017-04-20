@@ -4,62 +4,60 @@ FS			(f|F)
 %{
 #include <stdio.h>
 #include "y.tab.h"
+#include "AST.h"
 void count();
 void comment(void);
 int check_type();
 %}
 %%
 "/*"			  { comment(); }
-"break"			{ yylval.fn = 0; count(); return RESERVED_WORD; }
-"char"			{ yylval.fn = 1; count(); return RESERVED_WORD; }
-"continue"	{ yylval.fn = 2; count(); return RESERVED_WORD; }
-"double"		{ yylval.fn = 3; count(); return RESERVED_WORD; }
-"else"			{ yylval.fn = 4; count(); return RESERVED_WORD; }
-"for"  			{ yylval.fn = 5; count(); return RESERVED_WORD; }
-"if"	  		{ yylval.fn = 6; count(); return RESERVED_WORD; }
-"int"		  	{ yylval.fn = 7; count(); return RESERVED_WORD; }
-"return"		{ yylval.fn = 8; count(); return RESERVED_WORD; }
-"void"			{ yylval.fn = 9; count(); return RESERVED_WORD; }
-"while"			{ yylval.fn = 10;count(); return RESERVED_WORD; }
+"break"			{  count(); return(BREAK); }
+"char"			{  count(); return (CHAR); }
+"continue"	{  count(); return (CONTINUE); }
+"double"		{  count(); return (DOUBLE); }
+"else"			{  count(); return (ELSE); }
+"for"  			{  count(); return (FOR); }
+"if"	  		{  count(); return (IF); }
+"int"		  	{  count(); return (INT); }
+"return"		{  count(); return (RETURN); }
+"void"			{  count(); return (VOID); }
+"while"			{  count(); return (WHILE); }
+"+="			  { yylval.fn = 0; count(); return ASSIGMENT; }
+"-="			  { yylval.fn = 1; count(); return ASSIGMENT; }
+"*="			  { yylval.fn = 2; count(); return ASSIGMENT; }
+"/="			  { yylval.fn = 3; count(); return ASSIGMENT; }
+"%="			  { yylval.fn = 4; count(); return ASSIGMENT; }
+"++"			  { count(); return ('+'); }
+"--"			  { count(); return ('-'); }
+"<"			    { yylval.fn = 0; count(); return CMP_OP; }
+">"			    { yylval.fn = 1; count(); return CMP_OP; }
+"<="			  { yylval.fn = 2; count(); return CMP_OP; }
+">="			  { yylval.fn = 3; count(); return CMP_OP; }
+"=="			  { yylval.fn = 4; count(); return CMP_OP; }
+"!="			  { yylval.fn = 5; count(); return CMP_OP; }
+";"			    { count(); return (';'); }
+"&&"			  { count(); return AND_OP; }
+"||"			  { count(); return  OR_OP; }
+("{"|"<%")	{ count(); return ('{'); }
+("}"|"%>")	{ count(); return ('}'); }
+","			    { count(); return (','); }
+"="			    { count(); return('='); }
+"("			    { count(); return ('('); }
+")"			    { count(); return (')'); }
+("["|"<:")	{ count(); return ('['); }
+("]"|":>")	{ count(); return (']'); }
+"."			{  count(); return ('.'); }
+"!"			{  count(); return ('!'); }
+"-"			{  count(); return ('-'); }
+"+"			{  count(); return ('+'); }
+"*"			{  count(); return ('*'); }
+"/"			{  count(); return ('/'); }
+"%"			{  count(); return ('%'); }
+
 {L}({L}|{D})*		{ yylval.s = yytext; count(); return(check_type()); }
-
 L?'(\\.|[^\\'])+'	{ count(); return(CONSTANT); }
-
 {D}+{FS}?		{ yylval.d = atof(yytext); count(); return(CONSTANT); }
-
 L?\"(\\.|[^\\"])*\"	{ count(); return(STRING_LITERAL);}
-
-"+="			{ count(); return ASSIGMENT; }
-"-="			{ count(); return ASSIGMENT; }
-"*="			{ count(); return(MUL_ASSIGN); }
-"/="			{ count(); return(DIV_ASSIGN); }
-"%="			{ count(); return(MOD_ASSIGN); }
-"++"			{ count(); return(INC_OP); }
-"--"			{ count(); return(DEC_OP); }
-"&&"			{ count(); return(AND_OP); }
-"||"			{ count(); return(OR_OP); }
-"<="			{ count(); return(LE_OP); }
-">="			{ count(); return(GE_OP); }
-"=="			{ count(); return(EQ_OP); }
-"!="			{ count(); return(NE_OP); }
-";"			  { count(); return(';'); }
-("{"|"<%")		{ count(); return('{'); }
-("}"|"%>")		{ count(); return('}'); }
-","			{ count(); return(','); }
-"="			{ count(); return('='); }
-"("			{ count(); return('('); }
-")"			{ count(); return(')'); }
-("["|"<:")		{ count(); return('['); }
-("]"|":>")		{ count(); return(']'); }
-"."			{ count(); return('.'); }
-"!"			{ count(); return('!'); }
-"-"			{ count(); return('-'); }
-"+"			{ count(); return('+'); }
-"*"			{ count(); return('*'); }
-"/"			{ count(); return('/'); }
-"%"			{ count(); return('%'); }
-"<"			{ count(); return('<'); }
-">"			{ count(); return('>'); }
 
 [ \t\v\n\f]		{ count(); }
 .			{ /* ignore bad characters */ }

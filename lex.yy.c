@@ -360,8 +360,8 @@ static void yynoreturn yy_fatal_error (yyconst char* msg  );
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
 
-#define YY_NUM_RULES 51
-#define YY_END_OF_BUFFER 52
+#define YY_NUM_RULES 50
+#define YY_END_OF_BUFFER 51
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -371,18 +371,18 @@ struct yy_trans_info
 	};
 static yyconst flex_int16_t yy_accept[111] =
     {   0,
-        0,    0,   52,   50,   49,   49,   40,   50,   45,   50,
-       50,   35,   36,   43,   42,   33,   41,   39,   44,   15,
-       50,   30,   46,   34,   47,   13,   13,   37,   38,   13,
-       13,   13,   13,   13,   13,   13,   13,   13,   31,   48,
-       32,   29,    0,   16,    0,   21,   32,   24,    0,    0,
-       19,   22,   17,   23,   18,    1,   20,   15,   15,   38,
-       31,   37,   26,   28,   27,   13,    0,    0,   13,   13,
-       13,   13,   13,   13,    8,   13,   13,   13,   13,   25,
-       14,   13,   13,   13,   13,   13,    7,    9,   13,   13,
-       13,   13,    3,   13,   13,    6,   13,   11,   13,    2,
+        0,    0,   51,   49,   48,   48,   38,   49,   43,   49,
+       49,   33,   34,   41,   40,   31,   39,   37,   42,   46,
+       49,   26,   20,   32,   21,   44,   44,   35,   36,   44,
+       44,   44,   44,   44,   44,   44,   44,   44,   29,   49,
+       30,   25,    0,   47,    0,   17,   30,   27,    0,    0,
+       15,   18,   13,   19,   14,    1,   16,   46,   46,   36,
+       29,   35,   22,   24,   23,   44,    0,    0,   44,   44,
+       44,   44,   44,   44,    8,   44,   44,   44,   44,   28,
+       45,   44,   44,   44,   44,   44,    7,    9,   44,   44,
+       44,   44,    3,   44,   44,    6,   44,   11,   44,    2,
 
-       13,   13,   13,   12,   13,    5,   10,   13,    4,    0
+       44,   44,   44,   12,   44,    5,   10,   44,    4,    0
     } ;
 
 static yyconst YY_CHAR yy_ec[256] =
@@ -526,10 +526,11 @@ char *yytext;
 #line 5 "full.l"
 #include <stdio.h>
 #include "y.tab.h"
+#include "AST.h"
 void count();
 void comment(void);
 int check_type();
-#line 533 "lex.yy.c"
+#line 534 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -747,9 +748,9 @@ YY_DECL
 		}
 
 	{
-#line 11 "full.l"
+#line 12 "full.l"
 
-#line 753 "lex.yy.c"
+#line 754 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -808,263 +809,258 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 12 "full.l"
+#line 13 "full.l"
 { comment(); }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 13 "full.l"
-{ puts("BREAK");count(); return(BREAK); }
+#line 14 "full.l"
+{  count(); return(BREAK); }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 14 "full.l"
-{ puts("CHAR");count(); return(CHAR); }
+#line 15 "full.l"
+{  count(); return (CHAR); }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 15 "full.l"
-{ puts("CONTINUE");count(); return(CONTINUE); }
+#line 16 "full.l"
+{  count(); return (CONTINUE); }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 16 "full.l"
-{ puts("DOUBLE");count(); return(DOUBLE); }
+#line 17 "full.l"
+{  count(); return (DOUBLE); }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 17 "full.l"
-{ puts("ELSE");count(); return(ELSE); }
+#line 18 "full.l"
+{  count(); return (ELSE); }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 18 "full.l"
-{ puts("FOR");count(); return(FOR); }
+#line 19 "full.l"
+{  count(); return (FOR); }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 19 "full.l"
-{ puts("IF");count(); return(IF); }
+#line 20 "full.l"
+{  count(); return (IF); }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 20 "full.l"
-{ puts("INT");count(); return(INT); }
+#line 21 "full.l"
+{  count(); return (INT); }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 21 "full.l"
-{ puts("RETURN");count(); return(RETURN); }
+#line 22 "full.l"
+{  count(); return (RETURN); }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 22 "full.l"
-{ puts("VOID");count(); return(VOID); }
+#line 23 "full.l"
+{  count(); return (VOID); }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 23 "full.l"
-{ puts("WHILE");count(); return(WHILE); }
+#line 24 "full.l"
+{  count(); return (WHILE); }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 24 "full.l"
-{ puts("CHECK_TYPE");count(); return(check_type()); }
+#line 25 "full.l"
+{ yylval.fn = 0; count(); return ASSIGMENT; }
 	YY_BREAK
 case 14:
-/* rule 14 can match eol */
 YY_RULE_SETUP
 #line 26 "full.l"
-{ puts("CONSTANTE");count(); return(CONSTANT); }
+{ yylval.fn = 1; count(); return ASSIGMENT; }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 28 "full.l"
-{ puts("CONSTANTE");count(); return(CONSTANT); }
+#line 27 "full.l"
+{ yylval.fn = 2; count(); return ASSIGMENT; }
 	YY_BREAK
 case 16:
-/* rule 16 can match eol */
 YY_RULE_SETUP
-#line 30 "full.l"
-{ count(); return(STRING_LITERAL);}
+#line 28 "full.l"
+{ yylval.fn = 3; count(); return ASSIGMENT; }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 32 "full.l"
-{ puts("ADD_ASSIGN");count(); return(ADD_ASSIGN); }
+#line 29 "full.l"
+{ yylval.fn = 4; count(); return ASSIGMENT; }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 33 "full.l"
-{ puts("SUB_ASSIGN");count(); return(SUB_ASSIGN); }
+#line 30 "full.l"
+{ count(); return ('+'); }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 34 "full.l"
-{ puts("MUL_ASSIGN");count(); return(MUL_ASSIGN); }
+#line 31 "full.l"
+{ count(); return ('-'); }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 35 "full.l"
-{ puts("DIV_ASSIGN");count(); return(DIV_ASSIGN); }
+#line 32 "full.l"
+{ yylval.fn = 0; count(); return CMP_OP; }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 36 "full.l"
-{ puts("MOD_ASSIGN");count(); return(MOD_ASSIGN); }
+#line 33 "full.l"
+{ yylval.fn = 1; count(); return CMP_OP; }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 37 "full.l"
-{ puts("INC_OP");count(); return(INC_OP); }
+#line 34 "full.l"
+{ yylval.fn = 2; count(); return CMP_OP; }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 38 "full.l"
-{ puts("DEC_OP");count(); return(DEC_OP); }
+#line 35 "full.l"
+{ yylval.fn = 3; count(); return CMP_OP; }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 39 "full.l"
-{ puts("AND_OP");count(); return(AND_OP); }
+#line 36 "full.l"
+{ yylval.fn = 4; count(); return CMP_OP; }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 40 "full.l"
-{ puts("OR_OP");count(); return(OR_OP); }
+#line 37 "full.l"
+{ yylval.fn = 5; count(); return CMP_OP; }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 41 "full.l"
-{ puts("LE_OP");count(); return(LE_OP); }
+#line 38 "full.l"
+{ count(); return (';'); }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 42 "full.l"
-{ puts("GE_OP");count(); return(GE_OP); }
+#line 39 "full.l"
+{ count(); return AND_OP; }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 43 "full.l"
-{ puts("EQ_OP");count(); return(EQ_OP); }
+#line 40 "full.l"
+{ count(); return  OR_OP; }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 44 "full.l"
-{ puts("NE_OP");count(); return(NE_OP); }
+#line 41 "full.l"
+{ count(); return ('{'); }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 45 "full.l"
-{ puts("SEM_COLON");count(); return(';'); }
+#line 42 "full.l"
+{ count(); return ('}'); }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 46 "full.l"
-{ puts("LE");count(); return('{'); }
+#line 43 "full.l"
+{ count(); return (','); }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 47 "full.l"
-{ count(); return('}'); }
+#line 44 "full.l"
+{ count(); return('='); }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 48 "full.l"
-{ count(); return(','); }
+#line 45 "full.l"
+{ count(); return ('('); }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 49 "full.l"
-{ count(); return('='); }
+#line 46 "full.l"
+{ count(); return (')'); }
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 50 "full.l"
-{ count(); return('('); }
+#line 47 "full.l"
+{ count(); return ('['); }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 51 "full.l"
-{ count(); return(')'); }
+#line 48 "full.l"
+{ count(); return (']'); }
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 52 "full.l"
-{ count(); return('['); }
+#line 49 "full.l"
+{  count(); return ('.'); }
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 53 "full.l"
-{ count(); return(']'); }
+#line 50 "full.l"
+{  count(); return ('!'); }
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 54 "full.l"
-{ count(); return('.'); }
+#line 51 "full.l"
+{  count(); return ('-'); }
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 55 "full.l"
-{ count(); return('!'); }
+#line 52 "full.l"
+{  count(); return ('+'); }
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 56 "full.l"
-{ count(); return('-'); }
+#line 53 "full.l"
+{  count(); return ('*'); }
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 57 "full.l"
-{ count(); return('+'); }
+#line 54 "full.l"
+{  count(); return ('/'); }
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 58 "full.l"
-{ count(); return('*'); }
+#line 55 "full.l"
+{  count(); return ('%'); }
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 59 "full.l"
-{ count(); return('/'); }
+#line 57 "full.l"
+{ yylval.s = yytext; count(); return(check_type()); }
 	YY_BREAK
 case 45:
+/* rule 45 can match eol */
 YY_RULE_SETUP
-#line 60 "full.l"
-{ count(); return('%'); }
+#line 58 "full.l"
+{ count(); return(CONSTANT); }
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 61 "full.l"
-{ count(); return('<'); }
+#line 59 "full.l"
+{ yylval.d = atof(yytext); count(); return(CONSTANT); }
 	YY_BREAK
 case 47:
+/* rule 47 can match eol */
 YY_RULE_SETUP
-#line 62 "full.l"
-{ count(); return('>'); }
+#line 60 "full.l"
+{ count(); return(STRING_LITERAL);}
 	YY_BREAK
 case 48:
+/* rule 48 can match eol */
 YY_RULE_SETUP
-#line 63 "full.l"
-{ count(); return('|'); }
+#line 62 "full.l"
+{ count(); }
 	YY_BREAK
 case 49:
-/* rule 49 can match eol */
 YY_RULE_SETUP
-#line 65 "full.l"
-{ count(); }
+#line 63 "full.l"
+{ /* ignore bad characters */ }
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 66 "full.l"
-{ /* ignore bad characters */ }
-	YY_BREAK
-case 51:
-YY_RULE_SETUP
-#line 68 "full.l"
+#line 65 "full.l"
 ECHO;
 	YY_BREAK
-#line 1068 "lex.yy.c"
+#line 1064 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2065,7 +2061,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 68 "full.l"
+#line 65 "full.l"
 
 
 
@@ -2113,19 +2109,8 @@ void count(void)
 
 int check_type(void)
 {
-/*
-* pseudo code --- this is what it should check
-*
-*	if (yytext == type_name)
-*		return TYPE_NAME;
-*
-*	return IDENTIFIER;
-*/
-
-/*
-*	it actually will only return IDENTIFIER
-*/
-
+if ( !(strcmp(yytext,"int") && strcmp(yytext,"char") && strcmp(yytext,"double")))
+		return TYPE_NAME;
 	return IDENTIFIER;
 }
 
