@@ -1,7 +1,7 @@
 all:
-	lex -o scanner.cpp scanner.l
-	yacc -o parser.cpp parser.y
-	cc lex.yy.c y.tab.c -o nono
+	lex full.l
+	yacc -dg full.y
+	clang -v lex.yy.c y.tab.c -ll -lm
 
 clean:
 	rm -rf scanner.cpp
