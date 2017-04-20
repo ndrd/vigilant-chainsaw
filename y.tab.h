@@ -98,7 +98,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 8 "full.y" /* yacc.c:1909  */
+#line 8 "full.y" /* yacc.c:1915  */
 
     struct ast *a;
     double d;
@@ -106,7 +106,7 @@ union YYSTYPE
     struct symlist *sl;
     int fn;			/* which function */
 
-#line 110 "y.tab.h" /* yacc.c:1909  */
+#line 110 "y.tab.h" /* yacc.c:1915  */
 };
 
 typedef union YYSTYPE YYSTYPE;

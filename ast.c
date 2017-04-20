@@ -14,16 +14,16 @@ symhash (char *sym)
 	unsigned int h = 0;
 	unsigned c;
 
-	while (c = *sym++) hash = hash * HASH_COLLIDE ^ c;
+	while (c = *sym++) h = h * HASH_COLLIDE ^ c;
 
-	return hash;
+	return h;
 }
 
 /* retrive a symbol for a name, or create a new one */
 struct symbol *
 lookup (char *sym)
 {
-	struct symbol *sp = &symtab[symhash(sym)%SIZE];
+	struct symbol *sp = &symbtab[symhash(sym)%SIZE];
 	int scount  = SIZE;
 
 	while(--scount >= 0) {
@@ -38,8 +38,8 @@ lookup (char *sym)
 			sp->symbs = NULL;
 			return sp;
 		}
-		if (++sp >= symtab+SIZE) {
-			sp = symtab;
+		if (++sp >= symbtab+SIZE) {
+			sp = symbtab;
 		}
 	}
 
@@ -75,7 +75,6 @@ newfunc(int type, struct ast *left)
 	}
 
 	tmp->type = FUNCTION;
-	tmp->right = right;
 	tmp->left = left;
 
 	return tmp;
@@ -111,10 +110,11 @@ void print_ast(struct ast *node, int level)
 {
 	printf("%*s\n", 2*level, "");
 	level++;
-	if (!a) {
+	if (!node) {
 		printf("NULL\n");
 		return;
 	}
-	print_ast(ast->left, level);
-	print_ast(ast->right, level);
+	/* TODO : catch case when it's a function */
+	print_ast(node->left, level);
+	print_ast(node->right, level);
 }

@@ -1491,13 +1491,13 @@ yyreduce:
   switch (yyn)
     {
         case 4:
-#line 33 "full.y" /* yacc.c:1646  */
+#line 33 "full.y" /* yacc.c:1661  */
     { printf("STRING_LITERAL"); }
-#line 1497 "y.tab.c" /* yacc.c:1646  */
+#line 1497 "y.tab.c" /* yacc.c:1661  */
     break;
 
 
-#line 1501 "y.tab.c" /* yacc.c:1646  */
+#line 1501 "y.tab.c" /* yacc.c:1661  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
