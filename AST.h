@@ -12,7 +12,7 @@ enum RESERVED_WORDS {
   WHILE = 10
 };
 
-enum ASSIGMENT {
+enum ASSIGNMENT {
     ADD_ASSIGN = 0,
     SUB_ASSIGN = 1,
     MUL_ASSIGN = 2,
