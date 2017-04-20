@@ -60,7 +60,6 @@ L?\"(\\.|[^\\"])*\"	{ count(); return(STRING_LITERAL);}
 "%"			{ count(); return('%'); }
 "<"			{ count(); return('<'); }
 ">"			{ count(); return('>'); }
-"|"			{ count(); return('|'); }
 
 [ \t\v\n\f]		{ count(); }
 .			{ /* ignore bad characters */ }
