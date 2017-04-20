@@ -1,7 +1,7 @@
 all:
-	lex full.l
+	flex full.l
 	yacc -dg full.y
-	clang -v lex.yy.c y.tab.c -ll -lm
+	gcc lex.yy.c y.tab.c -lfl -lm -o test
 
 clean:
 	rm -rf scanner.cpp
