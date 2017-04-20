@@ -9,18 +9,18 @@ void comment(void);
 int check_type();
 %}
 %%
-"/*"			{ comment(); }
-"break"			{ yylval.fn = 1; count(); return(BREAK); }
-"char"			{ count(); return(CHAR); }
-"continue"		{count(); return(CONTINUE); }
-"double"		{ count(); return(DOUBLE); }
-"else"			{ count(); return(ELSE); }
-"for"			{ count(); return(FOR); }
-"if"			{ count(); return(IF); }
-"int"			{ count(); return(INT); }
-"return"		{ count(); return(RETURN); }
-"void"			{ count(); return(VOID); }
-"while"			{ count(); return(WHILE); }
+"/*"			  { comment(); }
+"break"			{ yylval.fn = 0; count(); return RESERVED_WORD; }
+"char"			{ yylval.fn = 1; count(); return RESERVED_WORD; }
+"continue"	{ yylval.fn = 2; count(); return RESERVED_WORD; }
+"double"		{ yylval.fn = 3; count(); return RESERVED_WORD; }
+"else"			{ yylval.fn = 4; count(); return RESERVED_WORD; }
+"for"  			{ yylval.fn = 5; count(); return RESERVED_WORD; }
+"if"	  		{ yylval.fn = 6; count(); return RESERVED_WORD; }
+"int"		  	{ yylval.fn = 7; count(); return RESERVED_WORD; }
+"return"		{ yylval.fn = 8; count(); return RESERVED_WORD; }
+"void"			{ yylval.fn = 9; count(); return RESERVED_WORD; }
+"while"			{ yylval.fn = 10;count(); return RESERVED_WORD; }
 {L}({L}|{D})*		{ yylval.s = yytext; count(); return(check_type()); }
 
 L?'(\\.|[^\\'])+'	{ count(); return(CONSTANT); }
@@ -29,8 +29,8 @@ L?'(\\.|[^\\'])+'	{ count(); return(CONSTANT); }
 
 L?\"(\\.|[^\\"])*\"	{ count(); return(STRING_LITERAL);}
 
-"+="			{ count(); return(ADD_ASSIGN); }
-"-="			{ count(); return(SUB_ASSIGN); }
+"+="			{ count(); return ASSIGMENT; }
+"-="			{ count(); return ASSIGMENT; }
 "*="			{ count(); return(MUL_ASSIGN); }
 "/="			{ count(); return(DIV_ASSIGN); }
 "%="			{ count(); return(MOD_ASSIGN); }
@@ -60,7 +60,6 @@ L?\"(\\.|[^\\"])*\"	{ count(); return(STRING_LITERAL);}
 "%"			{ count(); return('%'); }
 "<"			{ count(); return('<'); }
 ">"			{ count(); return('>'); }
-"|"			{ count(); return('|'); }
 
 [ \t\v\n\f]		{ count(); }
 .			{ /* ignore bad characters */ }
@@ -111,18 +110,7 @@ void count(void)
 
 int check_type(void)
 {
-/*
-* pseudo code --- this is what it should check
-*
-*	if (yytext == type_name)
-*		return TYPE_NAME;
-*
-*	return IDENTIFIER;
-*/
-
-/*
-*	it actually will only return IDENTIFIER
-*/
-
+if ( !(strcmp(yytext,"int") && strcmp(yytext,"char") && strcmp(yytext,"double")))
+		return TYPE_NAME;
 	return IDENTIFIER;
 }
