@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* AST tree node */
 struct ast {
   int type;

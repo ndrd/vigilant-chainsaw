@@ -4,62 +4,60 @@ FS			(f|F)
 %{
 #include <stdio.h>
 #include "y.tab.h"
+#include "AST.h"
 void count();
 void comment(void);
 int check_type();
 %}
 %%
-"/*"			{ comment(); }
-"break"			{ yylval.fn = 1; count(); return(BREAK); }
-"char"			{ count(); return(CHAR); }
-"continue"		{count(); return(CONTINUE); }
-"double"		{ count(); return(DOUBLE); }
-"else"			{ count(); return(ELSE); }
-"for"			{ count(); return(FOR); }
-"if"			{ count(); return(IF); }
-"int"			{ count(); return(INT); }
-"return"		{ count(); return(RETURN); }
-"void"			{ count(); return(VOID); }
-"while"			{ count(); return(WHILE); }
+"/*"			  { comment(); }
+"break"			{  count(); return(BREAK); }
+"char"			{  count(); return (CHAR); }
+"continue"	{  count(); return (CONTINUE); }
+"double"		{  count(); return (DOUBLE); }
+"else"			{  count(); return (ELSE); }
+"for"  			{  count(); return (FOR); }
+"if"	  		{  count(); return (IF); }
+"int"		  	{  count(); return (INT); }
+"return"		{  count(); return (RETURN); }
+"void"			{  count(); return (VOID); }
+"while"			{  count(); return (WHILE); }
+"+="			  { yylval.fn = 0; count(); return ASSIGMENT; }
+"-="			  { yylval.fn = 1; count(); return ASSIGMENT; }
+"*="			  { yylval.fn = 2; count(); return ASSIGMENT; }
+"/="			  { yylval.fn = 3; count(); return ASSIGMENT; }
+"%="			  { yylval.fn = 4; count(); return ASSIGMENT; }
+"++"			  { count(); return ('+'); }
+"--"			  { count(); return ('-'); }
+"<"			    { yylval.fn = 0; count(); return CMP_OP; }
+">"			    { yylval.fn = 1; count(); return CMP_OP; }
+"<="			  { yylval.fn = 2; count(); return CMP_OP; }
+">="			  { yylval.fn = 3; count(); return CMP_OP; }
+"=="			  { yylval.fn = 4; count(); return CMP_OP; }
+"!="			  { yylval.fn = 5; count(); return CMP_OP; }
+";"			    { count(); return (';'); }
+"&&"			  { count(); return AND_OP; }
+"||"			  { count(); return  OR_OP; }
+("{"|"<%")	{ count(); return ('{'); }
+("}"|"%>")	{ count(); return ('}'); }
+","			    { count(); return (','); }
+"="			    { count(); return('='); }
+"("			    { count(); return ('('); }
+")"			    { count(); return (')'); }
+("["|"<:")	{ count(); return ('['); }
+("]"|":>")	{ count(); return (']'); }
+"."			{  count(); return ('.'); }
+"!"			{  count(); return ('!'); }
+"-"			{  count(); return ('-'); }
+"+"			{  count(); return ('+'); }
+"*"			{  count(); return ('*'); }
+"/"			{  count(); return ('/'); }
+"%"			{  count(); return ('%'); }
+
 {L}({L}|{D})*		{ yylval.s = yytext; count(); return(check_type()); }
-
 L?'(\\.|[^\\'])+'	{ count(); return(CONSTANT); }
-
 {D}+{FS}?		{ yylval.d = atof(yytext); count(); return(CONSTANT); }
-
 L?\"(\\.|[^\\"])*\"	{ count(); return(STRING_LITERAL);}
-
-"+="			{ count(); return(ADD_ASSIGN); }
-"-="			{ count(); return(SUB_ASSIGN); }
-"*="			{ count(); return(MUL_ASSIGN); }
-"/="			{ count(); return(DIV_ASSIGN); }
-"%="			{ count(); return(MOD_ASSIGN); }
-"++"			{ count(); return(INC_OP); }
-"--"			{ count(); return(DEC_OP); }
-"&&"			{ count(); return(AND_OP); }
-"||"			{ count(); return(OR_OP); }
-"<="			{ count(); return(LE_OP); }
-">="			{ count(); return(GE_OP); }
-"=="			{ count(); return(EQ_OP); }
-"!="			{ count(); return(NE_OP); }
-";"			  { count(); return(';'); }
-("{"|"<%")		{ count(); return('{'); }
-("}"|"%>")		{ count(); return('}'); }
-","			{ count(); return(','); }
-"="			{ count(); return('='); }
-"("			{ count(); return('('); }
-")"			{ count(); return(')'); }
-("["|"<:")		{ count(); return('['); }
-("]"|":>")		{ count(); return(']'); }
-"."			{ count(); return('.'); }
-"!"			{ count(); return('!'); }
-"-"			{ count(); return('-'); }
-"+"			{ count(); return('+'); }
-"*"			{ count(); return('*'); }
-"/"			{ count(); return('/'); }
-"%"			{ count(); return('%'); }
-"<"			{ count(); return('<'); }
-">"			{ count(); return('>'); }
 
 [ \t\v\n\f]		{ count(); }
 .			{ /* ignore bad characters */ }
@@ -110,18 +108,7 @@ void count(void)
 
 int check_type(void)
 {
-/*
-* pseudo code --- this is what it should check
-*
-*	if (yytext == type_name)
-*		return TYPE_NAME;
-*
-*	return IDENTIFIER;
-*/
-
-/*
-*	it actually will only return IDENTIFIER
-*/
-
+if ( !(strcmp(yytext,"int") && strcmp(yytext,"char") && strcmp(yytext,"double")))
+		return TYPE_NAME;
 	return IDENTIFIER;
 }
