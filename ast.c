@@ -80,6 +80,55 @@ newfunc(int type, struct ast *left)
 	return tmp;
 }
 
+struct ast *
+newast(int type, struct ast *left, struct ast *right)
+{
+	return NULL;
+}
+
+struct ast *
+newfunc(int functype, struct ast *left)
+{
+	return NULL;
+}
+
+struct ast *
+newcmp(int cmptype, struct ast *l, struct ast *r)
+{
+	return NULL;
+}
+
+struct ast *
+newcall(struct symbol *s, struct ast *l)
+{
+	return NULL;
+}
+
+struct ast *
+newref(struct symbol *s)
+{
+	return NULL;
+}
+
+struct ast *
+newasgn(struct symbol *s, struct ast *v)
+{
+	return NULL;
+}
+
+struct ast *
+newnum(double d)
+{
+	return NULL;
+}
+
+struct ast *
+newflow(int nodetype, struct ast *cond, struct ast *tl, struct ast *tr)
+{
+	return NULL;
+}
+
+
 struct symlist *
 newsymlist(struct symbol *sym, struct symlist *next)
 {

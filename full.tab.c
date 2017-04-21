@@ -68,12 +68,13 @@
 #  include <stdlib.h>
 #  include "AST.h"
 
-extern int yylex();
-extern int yyparse();
-extern FILE* yyin;
-void yyerror(const char* s);
+    extern int yylex();
+    extern int yyparse();
+    extern FILE* yyin;
+    void yyerror(const char* s);
+    
 
-#line 77 "full.tab.c" /* yacc.c:339  */
+#line 78 "full.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -146,7 +147,7 @@ union YYSTYPE
     struct symlist *sl;
     int fn;			/* which function */
 
-#line 150 "full.tab.c" /* yacc.c:355  */
+#line 151 "full.tab.c" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -163,7 +164,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 167 "full.tab.c" /* yacc.c:358  */
+#line 168 "full.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -462,20 +463,20 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,    35,    35,    36,    37,    38,    42,    43,    44,    45,
-      46,    47,    48,    49,    53,    54,    58,    59,    60,    61,
-      65,    66,    67,    71,    72,    76,    77,    78,    79,    83,
-      84,    85,    89,    90,    93,    94,    98,    99,   103,   104,
-     108,   109,   113,   114,   118,   119,   123,   127,   128,   132,
-     133,   137,   138,   142,   143,   147,   148,   149,   150,   151,
-     155,   156,   160,   165,   166,   167,   168,   169,   170,   171,
-     172,   176,   180,   181,   185,   186,   187,   191,   192,   196,
-     197,   201,   202,   203,   204,   205,   206,   207,   208,   209,
-     210,   211,   215,   216,   217,   221,   222,   223,   224,   228,
-     232,   233,   237,   238,   242,   243,   244,   245,   246,   250,
-     251,   255,   256,   260,   261,   265,   266,   270,   271,   275,
-     276,   277,   278,   279,   283,   284,   285,   286,   290,   291,
-     295,   296,   300,   301,   302,   303,   307,   308
+       0,    34,    34,    35,    36,    37,    41,    42,    43,    44,
+      45,    46,    47,    48,    52,    53,    57,    58,    59,    60,
+      64,    65,    66,    70,    71,    75,    76,    77,    78,    82,
+      83,    84,    87,    88,    91,    92,    96,    97,   101,   102,
+     106,   107,   111,   112,   116,   117,   121,   125,   126,   130,
+     131,   135,   136,   140,   141,   145,   146,   147,   148,   149,
+     153,   154,   158,   163,   164,   165,   166,   167,   168,   169,
+     170,   174,   178,   179,   183,   184,   185,   189,   190,   194,
+     195,   199,   200,   201,   202,   203,   204,   205,   206,   207,
+     208,   209,   213,   214,   215,   219,   220,   221,   222,   226,
+     230,   231,   235,   236,   240,   241,   242,   243,   244,   248,
+     249,   253,   254,   258,   259,   263,   264,   268,   269,   273,
+     274,   275,   276,   277,   281,   282,   283,   284,   288,   289,
+     293,   294,   298,   299,   300,   301,   305,   306
 };
 #endif
 
@@ -1487,103 +1488,103 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 35 "full.y" /* yacc.c:1646  */
+#line 34 "full.y" /* yacc.c:1661  */
     { printf("Identifier"); }
-#line 1493 "full.tab.c" /* yacc.c:1646  */
+#line 1494 "full.tab.c" /* yacc.c:1661  */
     break;
 
   case 3:
-#line 36 "full.y" /* yacc.c:1646  */
+#line 35 "full.y" /* yacc.c:1661  */
     { printf("\nCONSTANT\n"); }
-#line 1499 "full.tab.c" /* yacc.c:1646  */
+#line 1500 "full.tab.c" /* yacc.c:1661  */
     break;
 
   case 4:
-#line 37 "full.y" /* yacc.c:1646  */
+#line 36 "full.y" /* yacc.c:1661  */
     { printf("STRING_LITERAL"); }
-#line 1505 "full.tab.c" /* yacc.c:1646  */
+#line 1506 "full.tab.c" /* yacc.c:1661  */
     break;
 
   case 49:
-#line 132 "full.y" /* yacc.c:1646  */
+#line 130 "full.y" /* yacc.c:1661  */
     {printf("\nTYPE SPECIFIER\n");}
-#line 1511 "full.tab.c" /* yacc.c:1646  */
+#line 1512 "full.tab.c" /* yacc.c:1661  */
     break;
 
   case 57:
-#line 149 "full.y" /* yacc.c:1646  */
+#line 147 "full.y" /* yacc.c:1661  */
     {printf("\nType Int\n");}
-#line 1517 "full.tab.c" /* yacc.c:1646  */
+#line 1518 "full.tab.c" /* yacc.c:1661  */
     break;
 
   case 74:
-#line 185 "full.y" /* yacc.c:1646  */
+#line 183 "full.y" /* yacc.c:1661  */
     {printf("P_D");}
-#line 1523 "full.tab.c" /* yacc.c:1646  */
+#line 1524 "full.tab.c" /* yacc.c:1661  */
     break;
 
   case 75:
-#line 186 "full.y" /* yacc.c:1646  */
+#line 184 "full.y" /* yacc.c:1661  */
     {printf("P_D");}
-#line 1529 "full.tab.c" /* yacc.c:1646  */
+#line 1530 "full.tab.c" /* yacc.c:1661  */
     break;
 
   case 81:
-#line 201 "full.y" /* yacc.c:1646  */
+#line 199 "full.y" /* yacc.c:1661  */
     {printf("I'm Here");}
-#line 1535 "full.tab.c" /* yacc.c:1646  */
+#line 1536 "full.tab.c" /* yacc.c:1661  */
     break;
 
   case 82:
-#line 202 "full.y" /* yacc.c:1646  */
+#line 200 "full.y" /* yacc.c:1661  */
     {printf("Hola");}
-#line 1541 "full.tab.c" /* yacc.c:1646  */
+#line 1542 "full.tab.c" /* yacc.c:1661  */
     break;
 
   case 89:
-#line 209 "full.y" /* yacc.c:1646  */
+#line 207 "full.y" /* yacc.c:1661  */
     {printf("Hola");}
-#line 1547 "full.tab.c" /* yacc.c:1646  */
+#line 1548 "full.tab.c" /* yacc.c:1661  */
     break;
 
   case 90:
-#line 210 "full.y" /* yacc.c:1646  */
+#line 208 "full.y" /* yacc.c:1661  */
     {printf("I'm Here");}
-#line 1553 "full.tab.c" /* yacc.c:1646  */
+#line 1554 "full.tab.c" /* yacc.c:1661  */
     break;
 
   case 91:
-#line 211 "full.y" /* yacc.c:1646  */
+#line 209 "full.y" /* yacc.c:1661  */
     {printf("I'm Here");}
-#line 1559 "full.tab.c" /* yacc.c:1646  */
+#line 1560 "full.tab.c" /* yacc.c:1661  */
     break;
 
   case 109:
-#line 250 "full.y" /* yacc.c:1646  */
+#line 248 "full.y" /* yacc.c:1661  */
     {printf("I'm Here");}
-#line 1565 "full.tab.c" /* yacc.c:1646  */
+#line 1566 "full.tab.c" /* yacc.c:1661  */
     break;
 
   case 110:
-#line 251 "full.y" /* yacc.c:1646  */
+#line 249 "full.y" /* yacc.c:1661  */
     {printf("Block Item\n");}
-#line 1571 "full.tab.c" /* yacc.c:1646  */
+#line 1572 "full.tab.c" /* yacc.c:1661  */
     break;
 
   case 128:
-#line 290 "full.y" /* yacc.c:1646  */
+#line 288 "full.y" /* yacc.c:1661  */
     {printf("TU_1");}
-#line 1577 "full.tab.c" /* yacc.c:1646  */
+#line 1578 "full.tab.c" /* yacc.c:1661  */
     break;
 
   case 129:
-#line 291 "full.y" /* yacc.c:1646  */
+#line 289 "full.y" /* yacc.c:1661  */
     {printf("TU_2");}
-#line 1583 "full.tab.c" /* yacc.c:1646  */
+#line 1584 "full.tab.c" /* yacc.c:1661  */
     break;
 
 
-#line 1587 "full.tab.c" /* yacc.c:1646  */
+#line 1588 "full.tab.c" /* yacc.c:1661  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1811,17 +1812,17 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 310 "full.y" /* yacc.c:1906  */
+#line 308 "full.y" /* yacc.c:1906  */
 
 
-  int main(){
-      yyin = stdin;
-      do{
-          yyparse();
-      }while(!feof(yyin));
+int main(){
+    yyin = stdin;
+    do{
+        yyparse();
+    }while(!feof(yyin));
 
-      return 0;
-  }
+    return 0;
+}
 void yyerror( const char* s ){
     printf(stderr, "Parse error: %s\n",s);
     exit(1);
